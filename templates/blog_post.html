@@ -1,0 +1,13 @@
+{% extends "main_layout.html" %}
+
+{% block content %}
+
+<h1 class="title">
+    {{post.title}}
+</h1>
+<p class="subtitle">
+    <small>{{post.date}}</small>
+    {{post.content}}
+</p>
+
+{% endblock %}

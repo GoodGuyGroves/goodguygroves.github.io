@@ -1,0 +1,14 @@
+{% extends "main_layout.html" %}
+{% block content %}
+            <h1 class="title">
+                {{metadata.title}}
+            </h1>
+            <h2>
+                {{metadata.company}}
+            </h2>
+            <p class="subtitle">
+                <small>{{metadata.company}}</small>
+                {{metadata.start_date}} - {{metadata.end_date}}
+                {{content | safe}}
+            </p>
+{% endblock %}
