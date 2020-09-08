@@ -49,18 +49,19 @@ class WebsiteBuilder:
     def cv_builder(self):
         """Gathers work experience and builds a CV"""
         all_jobs = {}
-        cv_template = self.env.get_template('cv_entry.html')
-        with open('content/cv/elenjicalsolutions.md', 'r') as job:
-            parsed_md = markdown(job.read(), extras=["metadata"])
-        all_jobs['elenjicalsolutions'] = {}
-        all_jobs['elenjicalsolutions']['content'] = parsed_md
-        all_jobs['elenjicalsolutions']['metadata'] = parsed_md.metadata
+        cv_template = self.env.get_template('cv.html')
+        for cv_entry in os.listdir("content/cv/"):
+            with open(f'content/cv/{cv_entry}', 'r') as job:
+                parsed_md = markdown(job.read(), extras=["metadata"])
+            all_jobs[cv_entry[:-3]] = {}
+            all_jobs[cv_entry[:-3]]['content'] = parsed_md
+            all_jobs[cv_entry[:-3]]['metadata'] = parsed_md.metadata
 
-        print(all_jobs['elenjicalsolutions'])
-        cv_html = cv_template.render(content=all_jobs['elenjicalsolutions']['content'], metadata=all_jobs['elenjicalsolutions']['metadata'],)
+        print(all_jobs)
+        cv_html = cv_template.render(contentjobs=all_jobs)
 
-        # with open('output/cv.html', 'w') as file:
-        #     file.write(cv_html)
+        with open('output/cv.html', 'w') as file:
+            file.write(cv_html)
         print(cv_html)
 
 if __name__ == "__main__":

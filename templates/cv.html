@@ -1,0 +1,18 @@
+{% extends "main_layout.html" %}
+{% block content %}
+{% for job in jobs %}
+<div></div>
+            <h1 class="title">
+                {{job.metadata.title}}
+            </h1>
+            <h2>
+                {{job.metadata.company}}
+            </h2>
+            <p class="subtitle">
+                <small>{{job.metadata.company}}</small>
+                {{job.metadata.start_date}} - {{job.metadata.end_date}}
+                {{job.content | safe}}
+            </p>
+{% endfor %}
+</div>
+{% endblock %}
