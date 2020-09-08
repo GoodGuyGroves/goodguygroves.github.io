@@ -1,26 +1,10 @@
+"""Personal website and CV creator"""
 import os
 from datetime import datetime
 from jinja2 import Environment, PackageLoader, select_autoescape
 from markdown2 import markdown
 import yaml
 from pathlib import Path
-
-# for post in POSTS:
-#     post_metadata = POSTS[post].metadata
-
-#     post_data = {
-#         'content': POSTS[post],
-#         'title': post_metadata['title'],
-#         'date': post_metadata['date']
-#     }
-
-#     post_html = post_template.render(post=post_data)
-#     post_slug = post_metadata['slug']
-#     post_file_path = f'output/posts/{post_slug}.html'
-
-#     os.makedirs(os.path.dirname(post_file_path), exist_ok=True)
-#     with open(post_file_path, 'w') as file:
-#         file.write(post_html)
 
 
 class WebsiteBuilder:
@@ -48,23 +32,28 @@ class WebsiteBuilder:
 
     def cv_builder(self):
         """Gathers work experience and builds a CV"""
-        all_jobs = {}
-        cv_template = self.env.get_template('cv.html')
-        for cv_entry in os.listdir("content/cv/"):
-            with open(f'content/cv/{cv_entry}', 'r') as job:
+        all_jobs = []
+        cv_template = self.env.get_template("cv_layout.html")
+        for cv_entry in os.listdir("content/cv/jobs/"):
+            job_data = {}
+            with open(f"content/cv/jobs/{cv_entry}", "r") as job:
                 parsed_md = markdown(job.read(), extras=["metadata"])
-            all_jobs[cv_entry[:-3]] = {}
-            all_jobs[cv_entry[:-3]]['content'] = parsed_md
-            all_jobs[cv_entry[:-3]]['metadata'] = parsed_md.metadata
+            job_data.update({"content": parsed_md})
+            job_data.update({**job_data, **parsed_md.metadata})
+            all_jobs.append(job_data)
 
-        print(all_jobs)
-        cv_html = cv_template.render(contentjobs=all_jobs)
+        sorted_jobs = sorted(
+            all_jobs,
+            key=lambda k: datetime.strptime(k["start_date"], "%Y/%m/%d"),
+            reverse=True,
+        )
+        cv_html = cv_template.render(jobs=sorted_jobs)
 
-        with open('output/cv.html', 'w') as file:
+        with open("cv.html", "w") as file:
             file.write(cv_html)
         print(cv_html)
 
+
 if __name__ == "__main__":
     builder = WebsiteBuilder()
-    # print(builder.template_dir)
     builder.cv_builder()
