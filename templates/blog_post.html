@@ -1,13 +1,34 @@
-{% extends "main_layout.html" %}
+{% extends "layout.html" %}
 
 {% block content %}
 
-<h1 class="title">
-    {{post.title}}
-</h1>
-<p class="subtitle">
-    <small>{{post.date}}</small>
-    {{post.content}}
-</p>
+<div class="box">
+    <div class='card equal-height is-shadowless'>
+        <div class='card-content is-flex is-horizontal-center' style="justify-content: center;">
+            <figure class="image is-flex is-horizontal-center" style="justify-content: center;">
+                <img src="{{blog.thumbnail}}">
+            </figure>
+        </div>
+    </div>
+    <h1 class="title is-1 has-text-centered">
+        {{blog.title}}
+    </h1>
+    <h1 class="subtitle is-1 has-text-centered">
+        {{blog.summary}}
+    </h1>
+    <div class="is-divider"></div>
+    <div class="container">
+        <div class="columns">
+            <div class="column has-text-left">
+                {{blog.author}}
+            </div>
+            <div class="column has-text-right">
+                {{blog.date}}
+            </div>
+        </div>
+    </div>
+    <br>
+    {{blog.content | safe}}
+</div>
 
 {% endblock %}

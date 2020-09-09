@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="box is-shadowless">
+    {% for post in blog_posts %}
+
+    <div class="box">
+
+        <a href="posts/{{ post.slug }}.html">
+            <h1 class="title">
+                {{post.title}}
+            </h1>
+        </a>
+        <h2 class="subtitle">
+            {{post.summary}}
+        </h2>
+        <div class="content">
+            {{post.content | safe | truncate}}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

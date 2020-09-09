@@ -33,7 +33,7 @@ class WebsiteBuilder:
     def cv_builder(self):
         """Gathers work experience and builds a CV"""
         all_jobs = []
-        cv_template = self.env.get_template("cv_layout.html")
+        cv_template = self.env.get_template("cv.html")
         for cv_entry in os.listdir("content/cv/jobs/"):
             job_data = {}
             with open(f"content/cv/jobs/{cv_entry}", "r") as job:
@@ -55,8 +55,8 @@ class WebsiteBuilder:
 
     def blog_builder(self):
         """Creates individual blog posts"""
-        blog_template = self.env.get_template("blog_layout.html")
-        main_blog_template = self.env.get_template("blog_main.html")
+        blog_template = self.env.get_template("blog_post.html")
+        main_blog_template = self.env.get_template("blog.html")
         all_blog_posts = []
         for blog_entry in os.listdir("content/blog/"):
             blog_data = {}
@@ -85,8 +85,15 @@ class WebsiteBuilder:
 
     def index_builder(self):
         """Creates index.html to piece everything together"""
+        jinja_env = Environment(loader=PackageLoader("main", "templates"))
+        index_template = jinja_env.get_template("index.html")
+        index_html = index_template.render(title="Russell Groves")
+        print(index_html)
+        with open("index.html", "w") as file:
+            file.write(index_html)
 
 if __name__ == "__main__":
     builder = WebsiteBuilder()
     builder.cv_builder()
     builder.blog_builder()
+    builder.index_builder()
