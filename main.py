@@ -68,7 +68,7 @@ class WebsiteBuilder:
             print(blog_data)
             blog_html = blog_template.render(blog=blog_data)
             print(blog_html)
-            blog_file_path = f'output/posts/{blog_data["slug"]}.html'
+            blog_file_path = f'posts/{blog_data["slug"]}.html'
             os.makedirs(os.path.dirname(blog_file_path), exist_ok=True)
             with open(blog_file_path, 'w') as file:
                 file.write(blog_html)
@@ -78,7 +78,7 @@ class WebsiteBuilder:
             key=lambda k: datetime.strptime(k["date"], "%Y/%m/%d"),
             reverse=True,
         )
-        main_blog_html = main_blog_template.render(blog_posts=all_blog_posts)
+        main_blog_html = main_blog_template.render(blog_posts=sorted_blog_posts)
         with open("blog.html", "w") as file:
             file.write(main_blog_html)
         print(main_blog_html)
