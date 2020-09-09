@@ -53,7 +53,40 @@ class WebsiteBuilder:
             file.write(cv_html)
         print(cv_html)
 
+    def blog_builder(self):
+        """Creates individual blog posts"""
+        blog_template = self.env.get_template("blog_layout.html")
+        main_blog_template = self.env.get_template("blog_main.html")
+        all_blog_posts = []
+        for blog_entry in os.listdir("content/blog/"):
+            blog_data = {}
+            with open(f"content/blog/{blog_entry}", "r") as blog_post:
+                parsed_md = markdown(blog_post.read(), extras=["metadata", "fenced-code-blocks"])
+            blog_data.update({"content": parsed_md})
+            blog_data.update({**blog_data, **parsed_md.metadata})
+            # print(parsed_md)
+            print(blog_data)
+            blog_html = blog_template.render(blog=blog_data)
+            print(blog_html)
+            blog_file_path = f'output/posts/{blog_data["slug"]}.html'
+            os.makedirs(os.path.dirname(blog_file_path), exist_ok=True)
+            with open(blog_file_path, 'w') as file:
+                file.write(blog_html)
+            all_blog_posts.append(blog_data)
+        sorted_blog_posts = sorted(
+            all_blog_posts,
+            key=lambda k: datetime.strptime(k["date"], "%Y/%m/%d"),
+            reverse=True,
+        )
+        main_blog_html = main_blog_template.render(blog_posts=all_blog_posts)
+        with open("blog.html", "w") as file:
+            file.write(main_blog_html)
+        print(main_blog_html)
+
+    def index_builder(self):
+        """Creates index.html to piece everything together"""
 
 if __name__ == "__main__":
     builder = WebsiteBuilder()
     builder.cv_builder()
+    builder.blog_builder()

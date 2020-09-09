@@ -1,7 +1,7 @@
-<h1 class="title is-3 is-uppercase mb-0 pb-0" style="color: #268BD2;">Experience Overview</h1>
-<div class="is-divider mb-2 mt-2" style="height:3px;border:none;color:#268BD2;background-color:#268BD2;"></div>
+<h1 class="title is-3 is-uppercase mb-0 pb-2" style="color: #268BD2; border-bottom: 2px solid; display: inline-block; line-height: 0.85;">Experience</h1>
+<!-- <div class="is-divider mb-2 mt-2" style="height:3px;border:none;color:#268BD2;background-color:#268BD2;"></div> -->
 {% for job in jobs %}
-<div class="container mb-4">
+<div class="container">
     <div class="container">
         <h1 class="title is-5" style="color: #657B83;">{{job.title}}</h1>
     </div>
@@ -31,5 +31,7 @@
         {% endif %}
     </div>
 </div>
+{% if not loop.last %}
 <div class="is-divider"></div>
+{% endif %}
 {% endfor %}

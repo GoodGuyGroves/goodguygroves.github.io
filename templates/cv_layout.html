@@ -13,12 +13,14 @@
 
 <body>
     <div class="container has-text-weight-medium">
-        <div class="notification" style="background-color: #FDF6E3;">
+        {% include 'navbar.html' %}
+        <div class="box">
             <div class="columns">
                 {% include 'cv_header.html' %}
             </div>
+            <div class="is-divider"></div>
             <div class="columns">
-                <div class="column is-8 content">
+                <div class="column is-8 content pl-6">
                     {% include 'cv_content.html' %}
                 </div>
                 <div class="column">
@@ -26,6 +28,7 @@
                 </div>
             </div>
         </div>
+            {% include 'footer.html' %}
     </div>
 </body>
 

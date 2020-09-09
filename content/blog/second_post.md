@@ -1,11 +1,11 @@
 ---
-title: Blog Introduction
-date: 2020/09/07
+title: Second post!
+date: 2020/09/09
 tags: blog
 author: Russell Groves
-thumbnail: https://images.unsplash.com/photo-1570521070694-ebff520095bb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80
-summary: My very first blog post!
-slug: introduction
+thumbnail: https://images.unsplash.com/photo-1593642634524-b40b5baae6bb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1489&q=80
+summary: My second blog post!
+slug: second-post
 ---
 
 Hello!
