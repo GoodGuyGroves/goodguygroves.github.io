@@ -10,7 +10,7 @@ slug: introduction
 
 Hello!
 
-As part of the [cloudresumechallenge.dev](cloudresumechallenge.dev) I started writing a static site generator in python using `markdown2` and `jinja2`, however, I am still getting to grips with it.
+As part of the [cloudresumechallenge.dev](https://cloudresumechallenge.dev) I started writing a static site generator in python using `markdown2` and `jinja2`, however, I am still getting to grips with it.
 
 Below is a test of a code fence:
 
