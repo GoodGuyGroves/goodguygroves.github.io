@@ -61,7 +61,9 @@ class WebsiteBuilder:
         for blog_entry in os.listdir("content/blog/"):
             blog_data = {}
             with open(f"content/blog/{blog_entry}", "r") as blog_post:
-                parsed_md = markdown(blog_post.read(), extras=["metadata", "fenced-code-blocks"])
+                parsed_md = markdown(
+                    blog_post.read(), extras=["metadata", "fenced-code-blocks"]
+                )
             blog_data.update({"content": parsed_md})
             blog_data.update({**blog_data, **parsed_md.metadata})
             # print(parsed_md)
@@ -70,7 +72,7 @@ class WebsiteBuilder:
             print(blog_html)
             blog_file_path = f'posts/{blog_data["slug"]}.html'
             os.makedirs(os.path.dirname(blog_file_path), exist_ok=True)
-            with open(blog_file_path, 'w') as file:
+            with open(blog_file_path, "w") as file:
                 file.write(blog_html)
             all_blog_posts.append(blog_data)
         sorted_blog_posts = sorted(
@@ -85,12 +87,12 @@ class WebsiteBuilder:
 
     def index_builder(self):
         """Creates index.html to piece everything together"""
-        jinja_env = Environment(loader=PackageLoader("main", "templates"))
-        index_template = jinja_env.get_template("index.html")
+        index_template = self.env.get_template("index.html")
         index_html = index_template.render(title="Russell Groves")
         print(index_html)
         with open("index.html", "w") as file:
             file.write(index_html)
+
 
 if __name__ == "__main__":
     builder = WebsiteBuilder()

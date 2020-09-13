@@ -12,6 +12,10 @@ pyyaml = "*"
 
 [packages]
 pygments = "*"
+boto3 = "*"
+fastapi = "*"
+uvicorn = "*"
+mangum = "*"
 
 [requires]
 python_version = "3.8"
